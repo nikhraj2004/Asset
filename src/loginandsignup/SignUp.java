@@ -94,6 +94,11 @@ public class SignUp extends javax.swing.JFrame {
 
         fname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         fname.setForeground(new java.awt.Color(102, 102, 102));
+        fname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fnameActionPerformed(evt);
+            }
+        });
 
         jLabel6.setBackground(new java.awt.Color(102, 102, 102));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -250,6 +255,10 @@ public class SignUp extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_SignUpBtnActionPerformed
+
+    private void fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fnameActionPerformed
 
     /**
      * @param args the command line arguments

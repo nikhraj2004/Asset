@@ -232,13 +232,10 @@ public class Login extends javax.swing.JFrame {
                 fname = rs.getString("full_name");
                 notFound = 1;
             }
-            if(notFound == 1 && Password.equals(passDb)){
-                Home HomeFrame = new Home();
-                HomeFrame.setUser(fname);
-                HomeFrame.setVisible(true);
-                HomeFrame.pack();
-                HomeFrame.setLocationRelativeTo(null); 
-                this.dispose();
+            if (notFound == 1 && Password.equals(passDb)) {
+                    Home homeFrame = new Home();
+                    homeFrame.setVisible(true);
+                    this.dispose();
             }else{
                JOptionPane.showMessageDialog(new JFrame(), "Incorrect email or password", "Error",
                         JOptionPane.ERROR_MESSAGE);
