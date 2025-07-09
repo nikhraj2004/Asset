@@ -32,8 +32,6 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         LoginBtn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -105,24 +103,13 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Password");
 
-        LoginBtn.setBackground(new java.awt.Color(204, 204, 255));
+        LoginBtn.setBackground(new java.awt.Color(0, 0, 204));
         LoginBtn.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         LoginBtn.setForeground(new java.awt.Color(255, 255, 255));
         LoginBtn.setText("Login");
         LoginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoginBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("I don't have an account");
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 51, 51));
-        jButton2.setText("Sign Up");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -137,17 +124,12 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(LeftLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2)
-                                .addComponent(email)
-                                .addComponent(jLabel3)
-                                .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
-                                .addComponent(LoginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(LeftLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)))))
+                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(email)
+                            .addComponent(jLabel3)
+                            .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                            .addComponent(LoginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
@@ -165,11 +147,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(LoginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jButton2))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         jPanel1.add(Left);
@@ -193,18 +171,9 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        SignUp SignUpFrame = new SignUp();
-        SignUpFrame.setVisible(true);
-        SignUpFrame.pack();
-        SignUpFrame.setLocationRelativeTo(null); 
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void LoginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginBtnActionPerformed
         // System.out.println("Sign up btn clicked");
-        String Email, Password, query, fname = null, passDb = null;
+        String Email, Password, query, fname = null, passDb = null,role = null;
         String SUrl, SUser, SPass;
         SUrl = "jdbc:MySQL://localhost:3306/user";
         SUser = "root";
@@ -230,12 +199,18 @@ public class Login extends javax.swing.JFrame {
             while(rs.next()){
                 passDb = rs.getString("password");
                 fname = rs.getString("full_name");
+                role = rs.getString("role");
                 notFound = 1;
             }
             if (notFound == 1 && Password.equals(passDb)) {
+                    if ("admin".equalsIgnoreCase(role)) {
                     Home homeFrame = new Home();
                     homeFrame.setVisible(true);
-                    this.dispose();
+                } else {
+                        userR userFrame = new userR(fname, Email);
+                        userFrame.setVisible(true);
+                }
+                this.dispose();
             }else{
                JOptionPane.showMessageDialog(new JFrame(), "Incorrect email or password", "Error",
                         JOptionPane.ERROR_MESSAGE);
@@ -259,11 +234,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton LoginBtn;
     private javax.swing.JPanel Right;
     private javax.swing.JTextField email;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

@@ -45,12 +45,13 @@ public class AddUser extends javax.swing.JFrame {
         emailAddress = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         pass = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        empid = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        phon = new javax.swing.JTextField();
+        rol = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        veiw = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,7 +88,7 @@ public class AddUser extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 80, 32));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 90, 32));
 
         jButton2.setBackground(new java.awt.Color(255, 0, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -98,7 +99,7 @@ public class AddUser extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 520, -1, 32));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, -1, 32));
 
         fname.setBackground(new java.awt.Color(255, 255, 204));
         fname.setPreferredSize(new java.awt.Dimension(550, 40));
@@ -132,11 +133,10 @@ public class AddUser extends javax.swing.JFrame {
         });
         jPanel1.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 400, -1));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setText("jTextField1");
-        jTextField1.setPreferredSize(new java.awt.Dimension(400, 40));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        empid.setBackground(new java.awt.Color(255, 255, 204));
+        empid.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        empid.setPreferredSize(new java.awt.Dimension(400, 40));
+        jPanel1.add(empid, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         jLabel6.setBackground(new java.awt.Color(0, 255, 255));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -144,20 +144,25 @@ public class AddUser extends javax.swing.JFrame {
         jLabel6.setText("Employee Id");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField2");
-        jTextField2.setPreferredSize(new java.awt.Dimension(400, 40));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        phon.setBackground(new java.awt.Color(255, 255, 204));
+        phon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        phon.setPreferredSize(new java.awt.Dimension(400, 40));
+        phon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(phon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 204));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user", " " }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(400, 40));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
+        rol.setBackground(new java.awt.Color(255, 255, 204));
+        rol.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user", " " }));
+        rol.setPreferredSize(new java.awt.Dimension(400, 40));
+        jPanel1.add(rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
 
         jTable1.setBackground(new java.awt.Color(255, 255, 204));
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -168,7 +173,18 @@ public class AddUser extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 690, 550));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 690, 470));
+
+        veiw.setBackground(new java.awt.Color(204, 255, 153));
+        veiw.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
+        veiw.setForeground(new java.awt.Color(204, 51, 0));
+        veiw.setText("Veiw");
+        veiw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                veiwActionPerformed(evt);
+            }
+        });
+        jPanel1.add(veiw, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 520, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/MECON1.jpg"))); // NOI18N
         jLabel5.setPreferredSize(new java.awt.Dimension(1366, 768));
@@ -178,11 +194,11 @@ public class AddUser extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1366, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -190,7 +206,7 @@ public class AddUser extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String fullName, email, Password,Userrole, query;
+        String empId,fullName, email, Password,phoneNumber,Userrole, query;
         String SUrl, SUser, SPass;
         SUrl = "jdbc:MySQL://localhost:3306/user";
         SUser = "root";
@@ -199,37 +215,49 @@ public class AddUser extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
             Statement st = con.createStatement();
-            if("".equals(fname.getText())){
+            if ("".equals(empid.getText())) {
+            JOptionPane.showMessageDialog(new JFrame(), "Employee ID is required", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }else if("".equals(fname.getText())){
                 JOptionPane.showMessageDialog(new JFrame(), "Full Name is require", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }else if("".equals(emailAddress.getText())){
                 JOptionPane.showMessageDialog(new JFrame(), "Email Address is require", "Error",
                         JOptionPane.ERROR_MESSAGE);
+            } else if ("".equals(phon.getText())) {
+            JOptionPane.showMessageDialog(new JFrame(), "Phone Number is required", "Error",
+                    JOptionPane.ERROR_MESSAGE);    
             } else if ("".equals(pass.getText())) {
-        JOptionPane.showMessageDialog(new JFrame(), "Password is required", "Error",
+            JOptionPane.showMessageDialog(new JFrame(), "Password is required", "Error",
                 JOptionPane.ERROR_MESSAGE);
-    } else if ("".equals(rol.getText())) {
+             } else if (rol.getSelectedItem() == null) {
         JOptionPane.showMessageDialog(new JFrame(), "Role is required", "Error",
                 JOptionPane.ERROR_MESSAGE);  
             }else {
+            empId = empid.getText();
             fullName = fname.getText(); 
             email    = emailAddress.getText();
             Password = pass.getText();
-            Userrole = rol.getText();
+            phoneNumber = phon.getText();
+            Userrole = rol.getSelectedItem().toString();
             System.out.println(Password);
             
-            query = "INSERT INTO user(full_name, email, password,role)"+
-                    "VALUES('"+fullName+"', '"+email+"' , '"+Password+"' , '"+Userrole+"')";
+            query = "INSERT INTO user(employee_id, full_name, email, password, phone_number, role)"+
+                    "VALUES('" + empId + "','"+fullName+"', '"+email+"' , '"+Password+"' , '" + phoneNumber + "', '"+Userrole+"')";
             
             st.execute(query);
+            empid.setText("");
             fname.setText("");
             emailAddress.setText("");
             pass.setText("");
-            rol.setText("");
+            phon.setText("");
+            rol.setSelectedIndex(-1);
             showMessageDialog(null, "New account has been created successfully!");
             }
         }catch(Exception e){
            System.out.println("Error!" + e.getMessage()); 
+           JOptionPane.showMessageDialog(new JFrame(), "Error: " + e.getMessage(), "Error",
+                JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -251,6 +279,42 @@ public class AddUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fnameActionPerformed
 
+    private void phonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phonActionPerformed
+
+    private void veiwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veiwActionPerformed
+        // TODO add your handling code here:
+        String SUrl = "jdbc:MySQL://localhost:3306/user";
+    String SUser = "root";
+    String SPass = "1234Anmol@";
+         try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+        Statement st = con.createStatement();
+
+        ResultSet rs = st.executeQuery("SELECT employee_id, full_name, email, phone_number, password, role FROM user");
+
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        while (rs.next()) {
+            String empId = rs.getString("employee_id");
+            String name = rs.getString("full_name");
+            String email = rs.getString("email");
+            String phone = rs.getString("phone_number");
+            String password = rs.getString("password");
+            String department = rs.getString("role");
+
+            model.addRow(new Object[]{empId, name, email, phone, password, department});
+        }
+
+        con.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(new JFrame(), "Error loading table: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_veiwActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -258,10 +322,10 @@ public class AddUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField emailAddress;
+    private javax.swing.JTextField empid;
     private javax.swing.JTextField fname;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -272,8 +336,9 @@ public class AddUser extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField pass;
+    private javax.swing.JTextField phon;
+    private javax.swing.JComboBox<String> rol;
+    private javax.swing.JButton veiw;
     // End of variables declaration//GEN-END:variables
 }

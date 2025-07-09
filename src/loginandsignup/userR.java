@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package loginandsignup;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -10,9 +16,14 @@ package loginandsignup;
  */
 public class userR extends javax.swing.JFrame {
 
-    /**
-     * Creates new form userR
-     */
+    String empEmail;
+
+    public userR(String fullName, String email) {
+        initComponents();
+        this.empEmail = email;
+        loadEmployeeAssets();
+    }
+
     public userR() {
         initComponents();
     }
@@ -29,12 +40,16 @@ public class userR extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 204));
+        jTable1.setBackground(new java.awt.Color(255, 204, 204));
+        jTable1.setBorder(new javax.swing.border.MatteBorder(null));
+        jTable1.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -46,20 +61,105 @@ public class userR extends javax.swing.JFrame {
                 "Name", "Employee Id", "Assets id", "Assets Type", "Status", "Date"
             }
         ));
+        jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTable1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 968, 538));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 920, 370));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setText("Help");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(992, 502, -1, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 300, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(255, 51, 51));
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Logout");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 350, -1, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loginandsignup/MECON1.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        maintenance maintain = new maintenance(); // Create an instance of AddAssets page
+        maintain.setVisible(true);            // Show AddAssets page
+        maintain.pack();
+        maintain.setLocationRelativeTo(null); // Center the window
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void loadEmployeeAssets() {
+        try {
+            String SUrl = "jdbc:MySQL://localhost:3306/user";
+            String SUser = "root";
+            String SPass = "1234Anmol@";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+            Statement st = con.createStatement();
+
+            String empQuery = "SELECT employee_id, full_name FROM user WHERE email = '" + empEmail + "'";
+            ResultSet empRS = st.executeQuery(empQuery);
+
+            String empId = "", fullName = "";
+            if (empRS.next()) {
+                empId = empRS.getString("employee_id");
+                fullName = empRS.getString("full_name");
+            }
+
+            String query = "SELECT asset_id, asset_type, status, date FROM asset WHERE employee_id = '" + empId + "'";
+            ResultSet rs = st.executeQuery(query);
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                String assetId = rs.getString("asset_id");
+                String type = rs.getString("asset_type");
+                String status = rs.getString("status");
+                String date = rs.getString("date");
+
+                model.addRow(new Object[]{fullName, empId, assetId, type, status, date});
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
+        }
+    }
+    private void jTable1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable1AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1AncestorAdded
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Login LoginFrame = new Login();
+        LoginFrame.setVisible(true);
+        LoginFrame.pack();
+        LoginFrame.setLocationRelativeTo(null); 
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,6 +198,7 @@ public class userR extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

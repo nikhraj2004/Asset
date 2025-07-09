@@ -3,6 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package loginandsignup;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -31,15 +38,16 @@ public class Assets_Status extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        empid = new javax.swing.JTextField();
+        assid = new javax.swing.JTextField();
+        dat = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField4 = new javax.swing.JTextField();
+        desc = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,8 +65,8 @@ public class Assets_Status extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 255, 255));
-        jLabel3.setText("Date");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 192, -1, -1));
+        jLabel3.setText("Date --(YYYY/MM/DD)");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 192, 200, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 255, 255));
@@ -70,50 +78,50 @@ public class Assets_Status extends javax.swing.JFrame {
         jLabel5.setText("Description");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 370, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setText("jTextField1");
-        jTextField1.setMaximumSize(null);
-        jTextField1.setMinimumSize(new java.awt.Dimension(64, 26));
-        jTextField1.setPreferredSize(new java.awt.Dimension(400, 40));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 45, -1, -1));
+        empid.setBackground(new java.awt.Color(255, 255, 204));
+        empid.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        empid.setMaximumSize(null);
+        empid.setPreferredSize(new java.awt.Dimension(400, 40));
+        empid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empidActionPerformed(evt);
+            }
+        });
+        getContentPane().add(empid, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 45, -1, -1));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField2");
-        jTextField2.setMaximumSize(null);
-        jTextField2.setMinimumSize(new java.awt.Dimension(400, 40));
-        jTextField2.setPreferredSize(new java.awt.Dimension(400, 40));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 134, -1, -1));
+        assid.setBackground(new java.awt.Color(255, 255, 204));
+        assid.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        assid.setMaximumSize(null);
+        assid.setMinimumSize(new java.awt.Dimension(400, 40));
+        assid.setPreferredSize(new java.awt.Dimension(400, 40));
+        getContentPane().add(assid, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 134, -1, -1));
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField3.setText("jTextField3");
-        jTextField3.setMaximumSize(null);
-        jTextField3.setMinimumSize(new java.awt.Dimension(400, 40));
-        jTextField3.setPreferredSize(new java.awt.Dimension(400, 40));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 223, -1, -1));
+        dat.setBackground(new java.awt.Color(255, 255, 204));
+        dat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dat.setMaximumSize(null);
+        dat.setMinimumSize(new java.awt.Dimension(400, 40));
+        dat.setPreferredSize(new java.awt.Dimension(400, 40));
+        getContentPane().add(dat, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 223, -1, -1));
 
         jComboBox1.setBackground(new java.awt.Color(255, 255, 204));
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Assigned", "Maintenance", "Returned", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Assigned", "Maintenance", "Returned", "Working" }));
         jComboBox1.setMaximumSize(null);
         jComboBox1.setMinimumSize(new java.awt.Dimension(400, 40));
         jComboBox1.setPreferredSize(new java.awt.Dimension(400, 40));
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 312, -1, -1));
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField4.setText("jTextField4");
-        jTextField4.setMaximumSize(null);
-        jTextField4.setMinimumSize(new java.awt.Dimension(400, 40));
-        jTextField4.setPreferredSize(new java.awt.Dimension(400, 40));
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        desc.setBackground(new java.awt.Color(255, 255, 204));
+        desc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        desc.setMaximumSize(null);
+        desc.setMinimumSize(new java.awt.Dimension(400, 40));
+        desc.setPreferredSize(new java.awt.Dimension(400, 40));
+        desc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                descActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 401, -1, -1));
+        getContentPane().add(desc, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 401, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(0, 204, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -137,7 +145,10 @@ public class Assets_Status extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, -1));
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 204));
+        jTable1.setBackground(new java.awt.Color(255, 204, 204));
+        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(51, 0, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -148,26 +159,126 @@ public class Assets_Status extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 720, 492));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 720, 430));
+
+        jButton3.setBackground(new java.awt.Color(204, 255, 204));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(153, 51, 0));
+        jButton3.setText("Veiw");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 460, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loginandsignup/MECON1.jpg"))); // NOI18N
         jLabel6.setText("jLabel6");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void descActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_descActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:                                         
+    String assetId, employeeId, date, status, description, query;
+    String SUrl, SUser, SPass;
+
+    SUrl = "jdbc:mysql://localhost:3306/user";
+    SUser = "root";
+    SPass = "1234Anmol@";
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+        Statement st = con.createStatement();
+
+        if ("".equals(empid.getText())) {
+            JOptionPane.showMessageDialog(new JFrame(), "Employee ID is required", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if ("".equals(assid.getText())) {
+            JOptionPane.showMessageDialog(new JFrame(), "Asset ID is required", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if ("".equals(dat.getText())) {
+            JOptionPane.showMessageDialog(new JFrame(), "Date is required", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            assetId = assid.getText();
+            employeeId = empid.getText();
+            date = dat.getText();
+            status = jComboBox1.getSelectedItem().toString();
+            description = desc.getText();
+
+            query = "UPDATE asset SET employee_id='" + employeeId + 
+                    "', date='" + date + 
+                    "', status='" + status + 
+                    "', description=" + (description.isEmpty() ? "NULL" : "'" + description + "'") + 
+                    " WHERE asset_id='" + assetId + "'";
+
+            int rowsAffected = st.executeUpdate(query);
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Asset status updated successfully!");
+                empid.setText("");
+                assid.setText("");
+                dat.setText("");
+                desc.setText("");
+                jComboBox1.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(new JFrame(), "Asset ID not found!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    } catch (Exception e) {
+        System.out.println("Error! " + e.getMessage());
+        JOptionPane.showMessageDialog(new JFrame(), "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Home().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    String SUrl = "jdbc:MySQL://localhost:3306/user";
+    String SUser = "root";
+    String SPass = "1234Anmol@";
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+        Statement st = con.createStatement();
+
+        // Adjust table name if different
+        String query = "SELECT employee_id, asset_id, date, status, description FROM asset WHERE status IN ('Assigned', 'Working')";
+        ResultSet rs = st.executeQuery(query);
+
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        while (rs.next()) {
+            String empId = rs.getString("employee_id");
+            String assetId = rs.getString("asset_id");
+            String date = rs.getString("date");
+            String status = rs.getString("status");
+            String description = rs.getString("description");
+
+            model.addRow(new Object[]{empId, assetId, date, status, description});
+        }
+
+        con.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(new JFrame(), "Error loading assigned asset status: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void empidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_empidActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,8 +316,13 @@ public class Assets_Status extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField assid;
+    private javax.swing.JTextField dat;
+    private javax.swing.JTextField desc;
+    private javax.swing.JTextField empid;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -216,9 +332,5 @@ public class Assets_Status extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,6 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package loginandsignup;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -29,17 +36,16 @@ public class AddAssets extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        assid = new javax.swing.JTextField();
+        asstype = new javax.swing.JComboBox<>();
+        srnum = new javax.swing.JTextField();
+        descr = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,55 +66,46 @@ public class AddAssets extends javax.swing.JFrame {
         jLabel3.setText("Serial No.");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 204, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 255, 255));
-        jLabel4.setText("Status");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 297, -1, -1));
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 255, 255));
         jLabel5.setText("Description");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 390, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setText("jTextField1");
-        jTextField1.setPreferredSize(new java.awt.Dimension(400, 40));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 49, 409, 44));
+        assid.setBackground(new java.awt.Color(255, 255, 204));
+        assid.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        assid.setPreferredSize(new java.awt.Dimension(400, 40));
+        getContentPane().add(assid, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 49, 409, 44));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 204));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laptop", "Desktop", "Printer", "Mouse", "Keyboard", "Headphone", " " }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(400, 40));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 142, -1, -1));
+        asstype.setBackground(new java.awt.Color(255, 255, 204));
+        asstype.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        asstype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laptop", "Desktop", "Printer", "Mouse", "Keyboard", "Headphone", " " }));
+        asstype.setPreferredSize(new java.awt.Dimension(400, 40));
+        getContentPane().add(asstype, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 142, -1, -1));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField2");
-        jTextField2.setPreferredSize(new java.awt.Dimension(400, 40));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 235, 409, 44));
+        srnum.setBackground(new java.awt.Color(255, 255, 204));
+        srnum.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        srnum.setPreferredSize(new java.awt.Dimension(400, 40));
+        getContentPane().add(srnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 235, 409, 44));
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField3.setText("jTextField3");
-        jTextField3.setPreferredSize(new java.awt.Dimension(400, 40));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 328, 409, 44));
-
-        jTextField4.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField4.setText("jTextField4");
-        jTextField4.setPreferredSize(new java.awt.Dimension(400, 40));
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        descr.setBackground(new java.awt.Color(255, 255, 204));
+        descr.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        descr.setPreferredSize(new java.awt.Dimension(400, 40));
+        descr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                descrActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 421, 409, 47));
+        getContentPane().add(descr, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 409, 47));
 
         jButton1.setBackground(new java.awt.Color(0, 255, 51));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Submit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 502, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(255, 0, 0));
@@ -122,7 +119,10 @@ public class AddAssets extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 500, 80, 30));
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 204));
+        jTable1.setBackground(new java.awt.Color(153, 255, 255));
+        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable1.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(51, 0, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -133,22 +133,127 @@ public class AddAssets extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 18, 710, 511));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 18, 710, 460));
+
+        jButton3.setBackground(new java.awt.Color(204, 255, 204));
+        jButton3.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 51, 0));
+        jButton3.setText("Veiw");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 500, 70, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loginandsignup/MECON1.jpg"))); // NOI18N
         jLabel6.setText("jLabel6");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void descrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descrActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_descrActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Home().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:  
+    String assetId, assetType, serialNumber, description = "", query;
+String SUrl = "jdbc:MySQL://localhost:3306/user";
+String SUser = "root";
+String SPass = "1234Anmol@";
+
+try {
+    // Load MySQL JDBC Driver
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+    Statement st = con.createStatement();
+
+    // Validate mandatory fields
+    if (assid.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(new JFrame(), "Asset ID is required", "Error", JOptionPane.ERROR_MESSAGE);
+    } else if (asstype.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(new JFrame(), "Asset Type is required", "Error", JOptionPane.ERROR_MESSAGE);
+    } else if (srnum.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(new JFrame(), "Serial Number is required", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        // Assign field values
+        assetId = assid.getText();
+        assetType = asstype.getSelectedItem().toString();
+        serialNumber = srnum.getText();
+
+        // Set description only if provided
+        if (!descr.getText().isEmpty()) {
+            description = descr.getText();
+        }
+
+        // Set status to "Available"
+        String status = "Available";
+
+        // Construct SQL query
+        query = "INSERT INTO asset(asset_id, asset_type, sr_number, status, description) " +
+                "VALUES('" + assetId + "', '" + assetType + "', '" + serialNumber + "', '" + status + "', '" + description + "')";
+
+        // Execute the query
+        st.execute(query);
+
+        // Reset fields
+        assid.setText("");
+        asstype.setSelectedIndex(-1);
+        srnum.setText("");
+        descr.setText("");
+
+        // Show success message
+        JOptionPane.showMessageDialog(null, "Asset has been added successfully!");
+    }
+} catch (Exception e) {
+    System.out.println("Error!" + e.getMessage());
+    JOptionPane.showMessageDialog(new JFrame(), "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+}
+
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String SUrl = "jdbc:MySQL://localhost:3306/user";
+    String SUser = "root";
+    String SPass = "1234Anmol@";
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+        Statement st = con.createStatement();
+
+        // Query only 'Available' or 'Returned' assets
+        String query = "SELECT asset_id, asset_type, sr_number, status, description FROM asset WHERE status IN ('Available', 'Returned')";
+        ResultSet rs = st.executeQuery(query);
+
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        while (rs.next()) {
+            String id = rs.getString("asset_id");
+            String type = rs.getString("asset_type");
+            String serial = rs.getString("sr_number");
+            String status = rs.getString("status");
+            String description = rs.getString("description");
+
+            model.addRow(new Object[]{id, type, serial, status, description});
+        }
+
+        con.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(new JFrame(), "Error loading asset table: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,20 +291,19 @@ public class AddAssets extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField assid;
+    private javax.swing.JComboBox<String> asstype;
+    private javax.swing.JTextField descr;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField srnum;
     // End of variables declaration//GEN-END:variables
 }
